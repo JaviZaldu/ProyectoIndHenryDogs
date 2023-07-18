@@ -1,0 +1,52 @@
+.detailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+    margin-left: 30%;
+    margin-right: 30%;
+    cursor: pointer;
+    padding: 3%;
+    border-radius: 30px;
+    background: #e0e0e026;
+    box-shadow: 15px 15px 30px #e4c9a3,
+               -15px -15px 30px #e4c9a3;
+  }
+
+  .image{
+    height: 300px;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 80px;
+    box-shadow: 15px 15px 30px #7e6e58,
+               -15px -15px 30px #7e6e58;
+               
+  }
+  
+  .Nombre {
+    font-size: 23px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .others {
+    font-size: 20px;
+  }
+
+  .volver {
+    margin-top: 2%;
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 15px 15px 30px #e4c9a3,
+               -15px -15px 30px #e4c9a3;
+   }

@@ -1,0 +1,23 @@
+.cards {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4 , 1fr);
+    grid-gap: 1%;
+    grid-row-gap: 5%;
+    margin-top: 1%;
+}
+
+.h2 {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/ span 1;
+}
+
+.image  {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30%;
+    grid-column: 3/ span 1;
+}
