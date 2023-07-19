@@ -5,6 +5,8 @@ export function validate(input) {
     const nameRegex = /^[A-Za-z\s]+$/;
     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
 
+
+    // Validación del imagen.
     if (!input.name) {
         errors.name = "El nombre es requerido"
     } else if (!nameRegex.test(input.name)) {
@@ -13,13 +15,14 @@ export function validate(input) {
         errors.name = "El nombre no puede exceder los 35 caracteres"
     }
 
+    // Validación de la imagen.
     if (!input.image) {
         errors.image = "La URL de la imagen es requerida";
       } else if (!urlRegex.test(input.image)) {
         errors.image = "Ingresa una URL válida para la imagen";
     }
 
-    // Validación de altura
+    // Validación de la altura
     const heightMin = parseInt(input.heightMin);
     const heightMax = parseInt(input.heightMax);
 
@@ -36,24 +39,21 @@ export function validate(input) {
         errors.heightMax = "La altura máxima debe ser mayor a la altura mínima";
     }
 
-    // Validación de peso
-    const weightMin = parseInt(input.weightMin);
-    const weightMax = parseInt(input.weightMax);
+    // Validación del peso
+    // const weightMin = parseInt(input.weight.weightMin);
+    // const weightMax = parseInt(input.weight.weightMax);
 
-    if (!input.weightMin) {
-        errors.weightMin = "El peso mínimo es requerido";
-    }
+    // if (!input.weight.weightMin || !input.weight.weightMin) {
+    // errors.weightMin = "los pesos son requeridos";
+    // errors.weightMax = "los pesos son requeridos";
+    // }
+    
+    // if (weightMin >= weightMax) {
+    // errors.weightMin = "El peso mínimo debe ser menor al peso máximo";
+    // errors.weightMax = "El peso máximo debe ser mayor al peso mínimo";
+    // }
 
-    if (!input.weightMax) {
-        errors.weightMax = "El peso máximo es requerido";
-    }
-
-    if (weightMin >= weightMax) {
-        errors.weightMin = "El peso mínimo debe ser menor al peso máximo";
-        errors.weightMax = "El peso máximo debe ser mayor al peso mínimo";
-    }
-
-    // Validación de edad
+    // Validación de la edad
     const ageMin = parseInt(input.ageMin);
     const ageMax = parseInt(input.ageMax);
 

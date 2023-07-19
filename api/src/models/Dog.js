@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     heightMin: {
@@ -23,12 +23,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    weightMin: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    weightMax: {
-      type: DataTypes.STRING,
+    weight: { 
+      type: DataTypes.JSON( {
+        metric: DataTypes.STRING
+      }),
       allowNull: false,
     },
     ageMin: {

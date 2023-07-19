@@ -23,3 +23,18 @@
     box-shadow: 15px 15px 30px #e4c9a3,
                -15px -15px 30px #e4c9a3;
    }
+
+.about {
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    border: none;
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 15px 15px 30px #e4c9a3,
+               -15px -15px 30px #e4c9a3;
+}

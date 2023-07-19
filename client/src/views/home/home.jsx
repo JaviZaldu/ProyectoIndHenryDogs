@@ -38,6 +38,7 @@ function Home() {
   return (
     <div className={styles.home}>
       <img src={tittle} alt="Henry Dogs PI" className={styles.tittleImage} />
+      <Link to={`/about`}><button className={styles.about}>ABOUT ME</button></Link>
       <Link to={`/form`}><button className={styles.form}>CREAR RAZA</button></Link>
       <SearchBar />
       <Order allTemperaments={allTemperaments}/>

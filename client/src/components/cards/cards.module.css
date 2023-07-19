@@ -8,16 +8,12 @@
 }
 
 .h2 {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    grid-column: 1/ span 1;
-}
-
-.image  {
-    display: grid;
-    justify-content: center;
-    align-items: center;
+    grid-column: 1 / span 1; /* Posición en la columna 1 */
+    justify-self: center; /* Centrar horizontalmente dentro de la celda */
+  }
+  
+.image {
+    grid-column: 3 / span 1; /* Posición en la columna 3 */
+    justify-self: center; /* Centrar horizontalmente dentro de la celda */
     border-radius: 30%;
-    grid-column: 3/ span 1;
 }

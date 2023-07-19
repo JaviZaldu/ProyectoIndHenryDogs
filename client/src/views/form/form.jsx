@@ -11,7 +11,7 @@ function Form() {
   const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({
-        name: "  Requerido",
+        name: "  *",
         image: "",
         heightMin: "",
         heightMax: "",
@@ -26,8 +26,9 @@ function Form() {
         name:"",
         heightMin:"",
         heightMax:"",
-        weightMin:"",
-        weightMax:"",
+        weight: { 
+          metric: ""
+        },
         temperament:"",
         ageMin:"",
         ageMax:"",
@@ -41,18 +42,58 @@ function Form() {
       };
 
   const DogsCopy = useSelector((state) => state.DogsCopy.dogs);
+
   const isDogNameDuplicated = (name) => {
     return DogsCopy.some((dog) => dog.name.toLowerCase() === name.toLowerCase());
   };
 
-    function handleChange(e) {
-      e.preventDefault();
+  const allTemperaments = useSelector((state) => state.allTemperaments);
+
+  const handleTemperamentChange = (e) => {
+    const temperamentValue = e.target.value;
+    setInput((prevInput) => {
+      const isSelected = prevInput.temperament.includes(temperamentValue);
+      let updatedTemperament;
+      if (isSelected) {
+        // Si el temperamento ya está seleccionado, lo eliminamos de la lista
+        updatedTemperament = prevInput.temperament
+          .split(',')
+          .filter((temp) => temp.trim() !== temperamentValue)
+          .join(', ');
+      } else {
+        // Si el temperamento no está seleccionado, lo agregamos a la lista
+        updatedTemperament = prevInput.temperament
+          ? `${prevInput.temperament}, ${temperamentValue}`
+          : temperamentValue;
+      }
+      return { ...prevInput, temperament: updatedTemperament };
+    });
+  };
+
+
+  function handleChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+  
+    // Si el campo es weightMin o weightMax, actualizamos el estado dentro de input.weight.metric
+    if (name === "weightMin" || name === "weightMax") {
       setInput((prevInput) => ({
         ...prevInput,
-        [e.target.name]: e.target.value
+        weight: {
+          metric: `${name === "weightMin" ? value : prevInput.weight.metric.split(" - ")[0]} - ${
+            name === "weightMax" ? value : prevInput.weight.metric.split(" - ")[1]
+          }`,
+        },
       }));
-      validateForm();
+    } else {
+      // Si el campo no es weightMin o weightMax, actualizamos el estado normalmente
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: value,
+      }));
     }
+    validateForm();
+  }
 
     function handleSubmit(e) {
       e.preventDefault();
@@ -60,20 +101,20 @@ function Form() {
       const isNameDuplicated = isDogNameDuplicated(input.name);
       if (isNameDuplicated) {
         alert("Ya existe un perro con este nombre. Por favor, elige otro nombre.");
-        return;
-      }
-
-      dispatch(createDog(input))
-        .then(() => {
-          setIsDogCreated(true); // Perro creado exitosamente
-          setTimeout(() => {
-            setIsDogCreated(false); // Ocultar el mensaje después de unos segundos
-          }, 3000); // Aquí puedes ajustar la cantidad de milisegundos que el mensaje se muestra antes de desaparecer (3 segundos en este caso)
-        })
-        .catch((errors) => {
-          console.log(errors.response);
-        });
+      return;
     }
+      dispatch(createDog(input))
+    .then(() => {
+      setIsDogCreated(true); // Perro creado exitosamente
+      setTimeout(() => {
+        setIsDogCreated(false); // Ocultar el mensaje después de unos segundos
+      }, 3000);
+      alert("¡Perro creado correctamente!");
+    })
+    .catch((errors) => {
+      console.log(errors.response);
+    });
+};
 
   return (
     <div>
@@ -91,48 +132,56 @@ function Form() {
       <div>
             <label><strong>Foto:  </strong></label>
             <input className={styles.input} type="text" name="image" value={input.image} onChange={handleChange} />
-            <span className={styles.error} >{errors.image}</span>
+            <span className={styles.error} >  {errors.image}</span>
         </div>
         <div>
             <label><strong>Nombre:  </strong></label>
             <input className={styles.input} type="text" name="name" value={input.name} onChange={handleChange}/>
-            <span className={styles.error} >{errors.name}</span>
+            <span className={styles.error} >  {errors.name}</span>
         </div>
         <div>
             <label><strong>Altura mínima:  </strong></label>
-            <input className={styles.input} type="text" name="heightMin" value={input.heightMin} onChange={handleChange}/>
-            <span className={styles.error} >{errors.heightMin}</span>
+            <input className={styles.input} type="text" name="heightMin" value={input.heightMin} onChange={handleChange}/> Cm
+            <span className={styles.error} >  {errors.heightMin}</span>
         </div>
         <div>
             <label><strong>Altura máxima:  </strong></label>
-            <input className={styles.input} type="text" name="heightMax" value={input.heightMax} onChange={handleChange}/>
-            <span className={styles.error} >{errors.heightMax}</span>
+            <input className={styles.input} type="text" name="heightMax" value={input.heightMax} onChange={handleChange}/> Cm
+            <span className={styles.error} >  {errors.heightMax}</span>
         </div>
         <div>
             <label><strong>Peso mínimo:  </strong></label>
-            <input className={styles.input} type="text" name="weightMin" value={input.weightMin} onChange={handleChange}/>
-            <span className={styles.error} >{errors.weightMin}</span>
+            <input className={styles.input} type="text" name="weightMin" value={input.weight.weightMin} onChange={handleChange}/> Kg
+            <span className={styles.error} >  {errors.weightMin}</span>
         </div>
         <div>
             <label><strong>Peso máximo:  </strong></label>
-            <input className={styles.input} type="text" name="weightMax" value={input.weightMax} onChange={handleChange}/>
-            <span className={styles.error} >{errors.weightMax}</span>
+            <input className={styles.input} type="text" name="weightMax" value={input.weight.weightMax} onChange={handleChange}/> Kg
+            <span className={styles.error} >  {errors.weightMax}</span>
         </div>
         <div>
             <label><strong>Años de vida mínimos:  </strong></label>
-            <input className={styles.input} type="text" name="ageMin" value={input.ageMin} onChange={handleChange}/>
-            <span className={styles.error} >{errors.ageMin}</span>
+            <input className={styles.input} type="text" name="ageMin" value={input.ageMin} onChange={handleChange}/> Años
+            <span className={styles.error} >  {errors.ageMin}</span>
         </div>
         <div>
             <label><strong>Años de vida máximos:  </strong></label>
-            <input className={styles.input} type="text" name="ageMax" value={input.ageMax} onChange={handleChange}/>
-            <span className={styles.error} >{errors.ageMin}</span>
+            <input className={styles.input} type="text" name="ageMax" value={input.ageMax} onChange={handleChange}/> Años
+            <span className={styles.error} >  {errors.ageMin}</span>
         </div>
-        <div>
+        <div className={styles.TemperamentDiv}>
             <label><strong>Temperamentos:  </strong></label>
-            <input className={styles.input} type="text" name="temperament" value={input.temperament} onChange={handleChange}/>
+            <div className={styles.Temperament}>
+                {allTemperaments.map((temperament) => ( <label key={temperament.id}>
+                <input 
+                      type="checkbox" 
+                      name="temperament" 
+                      value={temperament.name} 
+                      checked={input.temperament.includes(temperament.name)} 
+                      onChange={handleTemperamentChange}
+                /> {temperament.name}</label>))}
+            </div>
         </div>
-        <div>
             {!errors.name && 
             !errors.image && 
             !errors.heightMin && 
@@ -140,8 +189,8 @@ function Form() {
             !errors.weightMin &&
             !errors.weightMax &&
             !errors.ageMin &&
-            !errors.ageMax && <button className={styles.btn} type="submit">Crear Raza</button>}
-        </div>
+            !errors.ageMax && 
+            <button className={styles.btn} type="submit">Crear Raza</button>}
     </form>
     </div>
     </div>

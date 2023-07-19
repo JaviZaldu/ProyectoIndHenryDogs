@@ -21,13 +21,6 @@ function Detail() {
     return <p>Loading...</p>;
   }
 
-  let weightDisplay = "";
-  if (Dog.weightMin && Dog.weightMax) {
-    weightDisplay = `${Dog.weightMin} - ${Dog.weightMax}`;
-  } else if (Dog.weight && Dog.weight.metric) {
-    weightDisplay = Dog.weight.metric;
-  }
-
   let heightDisplay = "";
   if (Dog.heightMin && Dog.heightMax) {
     heightDisplay = `${Dog.heightMin} - ${Dog.heightMax}`;
@@ -67,8 +60,8 @@ function Detail() {
       <div className={styles.others}>
         <p><strong>Años de vida: </strong> {ageDisplay}</p>
         <p><strong>Temperamentos:</strong> {Dog.temperament}</p>
-        <p><strong>Peso: </strong>{weightDisplay}</p>
-        <p><strong>Altura: </strong> {heightDisplay}</p>
+        <p><strong>Peso: </strong>{Dog.weight.metric} Kg</p>
+        <p><strong>Altura: </strong> {heightDisplay} Cm</p>
       </div>
     </div>
     </div>

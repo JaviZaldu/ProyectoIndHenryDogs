@@ -44,13 +44,13 @@ export default function Order({allTemperaments}) {
         <option value="heavier">Mayor Peso</option>
       </select>
       <select className={styles.filter} onChange={handleFilter}>
-      <option>Ordenar por Temperamento</option>
+      <option value="1" >Ordenar por Temperamento</option>
         {allTemperaments.map((temperament) => <option key={temperament.id} value={temperament.name} >{temperament.name}</option>) }
       </select>
       <select className={styles.filter} onChange={handleOriginFilter}>
       <option>Ordenar por Origen</option>
         <option value="Api">API</option>
-        <option value="database">Base de datos</option>
+        <option value="Database">Base de datos</option>
       </select>
       <button className={styles.button} onClick={handleReset}>Reset</button>
     </div>

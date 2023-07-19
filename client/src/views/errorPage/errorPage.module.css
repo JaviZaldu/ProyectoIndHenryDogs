@@ -1,0 +1,36 @@
+.errordiv {
+    align-items: center;
+    margin-top: 10px;
+}
+
+.errorgif {
+    margin-top: 3%;
+    border-radius: 10%;
+    width: 20%;
+    
+}
+
+.errorH3 {
+    margin-top: 5%;
+    font-size: 40px;
+    box-shadow: 15px 15px 30px #e4c9a3,
+               -15px -15px 30px #e4c9a3;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.volver {
+    margin-top: 5%;
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 20px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 15px 15px 30px #e4c9a3,
+               -15px -15px 30px #e4c9a3;
+   }

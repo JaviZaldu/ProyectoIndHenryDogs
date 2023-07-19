@@ -1,9 +1,12 @@
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+
 
 import Home from './views/home/home';
 import Detail from './views/detail/detail';
 import Form from './views/form/form';
 import Landing from './views/landing/landing';
+import ErrorPage from './views/errorPage/errorPage';
+import About from './views/about/about';
 
 import './App.css';
 
@@ -13,10 +16,10 @@ function App() {
     <div className="App">
       <Switch>
           <Route path='/home' component= {Home}/>
-          {/* <Route path='/about' component= {<About/>}/> */}
+          <Route path='/about' component= {About}/>
           <Route path='/detail/:id' component= {Detail}/>
           <Route path="/form" component= {Form} />
-          {/* <Route path='*' component={<Navigate to= "/ErrorPage" replace/>}/> */}
+          <Route path='*' component={ErrorPage}/>
           <Route path='/' component={Landing}/>
       </Switch>
     </div>

@@ -49,7 +49,7 @@ const rootReducer = (state = initialState, action) => {
             return 0
           })
         }
-        if (action.payload === "Z-A") {
+        else if (action.payload === "Z-A") {
           ordenados = [...state.DogsCopy.dogs].sort((a, b) => {
             const nameA = a.name.toUpperCase()
             const nameB = b.name.toUpperCase()
@@ -61,6 +61,11 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0
           })
+        } else {
+          return {
+            ...state,
+            DogsCopy: state.allDogs,
+          };
         }
         return {
           ...state,
@@ -73,19 +78,23 @@ const rootReducer = (state = initialState, action) => {
       case WEIGHT_ORDER:
       let orderedByWeight;
       if (action.payload === "lighter") {
-        orderedByWeight = state.DogsCopy.dogs.sort((a, b) => {
-          const weightA = parseInt(a.weight.metric.split(" - ")[0]); // Convierte el valor numérico inferior del rango
-          const weightB = parseInt(b.weight.metric.split(" - ")[0]); // Convierte el valor numérico inferior del rango
+        orderedByWeight = [...state.DogsCopy.dogs].sort((a, b) => {
+          const weightA = parseInt(a.weight.metric.split(" - ")[0]);
+          const weightB = parseInt(b.weight.metric.split(" - ")[0]);
           return weightA - weightB;
         });
       } else if (action.payload === "heavier") {
-        orderedByWeight = state.DogsCopy.dogs.sort((a, b) => {
-          const weightA = parseInt(a.weight.metric.split(" - ")[1]); // Convierte el valor numérico superior del rango
-          const weightB = parseInt(b.weight.metric.split(" - ")[1]); // Convierte el valor numérico superior del rango
-          return weightB - weightA; // Ordena de mayor a menor peso
+        orderedByWeight = [...state.DogsCopy.dogs].sort((a, b) => {
+          const weightA = parseInt(a.weight.metric.split(" - ")[0]);
+          const weightB = parseInt(b.weight.metric.split(" - ")[0]);
+          return weightB - weightA;
         });
-      } else {
-        orderedByWeight = state.DogsCopy.dogs; // No se seleccionó ninguna opción, no se hace ningún cambio
+      }
+      else {
+        return {
+          ...state,
+          DogsCopy: state.allDogs,
+        };
       }
       return {
         ...state,
@@ -97,6 +106,12 @@ const rootReducer = (state = initialState, action) => {
       
       case FILTER_BY_TEMPERAMENTS:
         let tempsDogs = state.allDogs.dogs;
+        if (action.payload === "1") {
+          return {
+            ...state,
+            DogsCopy: state.allDogs,
+          };
+        } else {
         const filtrados = tempsDogs.filter((dog) => dog.temperament && dog.temperament.includes(action.payload));
         return {
           ...state,
@@ -104,6 +119,7 @@ const rootReducer = (state = initialState, action) => {
             ...state.DogsCopy,
             dogs: filtrados,
         }
+      }
       }
 
       case FILTER_BY_ORIGIN:
@@ -114,10 +130,16 @@ const rootReducer = (state = initialState, action) => {
               return !isNaN((dog.id));
             });
           } 
-          else {
+          else if (action.payload === "Database") {
             origen = originalDogs.filter((dog) => {
               return isNaN((dog.id));
             });
+          }
+          else {
+            return {
+              ...state,
+              DogsCopy: state.allDogs,
+            };
           }
         return {
           ...state,

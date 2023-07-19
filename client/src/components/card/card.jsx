@@ -2,14 +2,9 @@ import styles from './card.module.css';
 import { Link } from 'react-router-dom';
 
 function Card({dog}) {
-  const {name, temperament, id} = dog;
+  console.log(dog)
+  const {name, temperament, weight, id} = dog;
 
-  let weightDisplay = "";
-  if (dog.weightMin && dog.weightMax) {
-    weightDisplay = `${dog.weightMin} - ${dog.weightMax}`;
-  } else if (dog.weight && dog.weight.metric) {
-    weightDisplay = dog.weight.metric;
-  }
   let imageDisplay = "";
   if (dog.image.url) {
     imageDisplay = dog.image.url;
@@ -27,7 +22,7 @@ function Card({dog}) {
       <h2 className={styles.name}>{name}</h2>
       <div className={styles.others}>
       <p ><strong>Temperamentos: </strong> {temperament}</p>
-      <p ><strong>Peso: </strong>{weightDisplay} KG</p>
+      <p ><strong>Peso: </strong>{weight.metric} Kg</p>
       </div>
     </div>
   );
