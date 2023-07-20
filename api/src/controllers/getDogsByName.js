@@ -9,9 +9,10 @@ const URL = "https://api.thedogapi.com/v1/breeds";
 const getDogsByName = async (req, res) => {
   const { name } = req.query;
   try {
-    if (name) {
+    if (name) {  // busca el nombre en la api.
       const { data: apiData } = await axios.get(URL);
-      const apiDogs = apiData.filter((dog) => 
+
+      const apiDogs = apiData.filter((dog) => // Filtra las razas con el nombre.
       dog.name.toLowerCase().includes(name.toLowerCase())).map((dog) =>
       ({
           name: dog.name,
@@ -21,7 +22,7 @@ const getDogsByName = async (req, res) => {
           life_span: dog.life_span,
       }));
 
-      const dbDogs = await Dog.findAll({
+      const dbDogs = await Dog.findAll({ // Busca el nombre en la DB.
         where: {
           name: {
             [Op.iLike]: `%${name}%`

@@ -22,14 +22,14 @@ function Home() {
     dispatch(getAllTemperaments());
   }, [dispatch]);
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1); // Define el estado local para manejar la paginación.
     const dogsPerPage = 8;
   
-    const indexOfLastDog = currentPage * dogsPerPage;
+    const indexOfLastDog = currentPage * dogsPerPage; // Calcula el índice del último y primer perro en la página actual.
     const indexOfFirstDog = indexOfLastDog - dogsPerPage;
     const currentDogs = DogsCopy.dogs?.slice(indexOfFirstDog, indexOfLastDog);
   
-    const totalPages = Math.ceil(DogsCopy.dogs?.length / dogsPerPage);
+    const totalPages = Math.ceil(DogsCopy.dogs?.length / dogsPerPage); // Obtiene los perros que corresponden a la página actual.
   
     const handlePageChange = (pageNumber) => {
       setCurrentPage(pageNumber);
@@ -40,7 +40,7 @@ function Home() {
       <img src={tittle} alt="Henry Dogs PI" className={styles.tittleImage} />
       <Link to={`/about`}><button className={styles.about}>ABOUT ME</button></Link>
       <Link to={`/form`}><button className={styles.form}>CREAR RAZA</button></Link>
-      <SearchBar />
+      <SearchBar setCurrentPage = {setCurrentPage}/>
       <Order allTemperaments={allTemperaments}/>
       <Cards DogsCopy={currentDogs}/>
       <Paginado totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />

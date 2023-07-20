@@ -8,18 +8,17 @@ const createDog = async (req, res) => {
             return res.status(400).json({ error: "Faltan datos obligatorios" });
         }
 
-        // Verificar si ya existe un perro con el mismo nombre en la base de datos
-        const existingDog = await Dog.findOne({
+        const existingDog = await Dog.findOne({ // Verifica si existe en DB.
         where: {
             name: name,
         },
         });
 
-        if (existingDog) {
+        if (existingDog) { // Error.
         return res.status(400).json({ error: "Ya existe un perro con el mismo nombre" });
         }
 
-        const newDog = await Dog.create({
+        const newDog = await Dog.create({ // Crea.
             name, 
             image, 
             heightMin,
@@ -30,24 +29,16 @@ const createDog = async (req, res) => {
             temperament
         })
 
-        // Convertir temperament a un array si no lo es
-    const temperamentArray = Array.isArray(temperament) ? temperament : [temperament];
-
-    // Obtener los temperamentos existentes en la base de datos
-    const existingTemperaments = await Temperaments.findAll();
-
-    // Filtrar los temperamentos proporcionados que ya existen en la base de datos
-    const existingTemperamentNames = temperamentArray.filter((temp) =>
-      existingTemperaments.some((existingTemp) => existingTemp.name === temp)
-    );
-
-    // Asociar los temperamentos existentes al nuevo perro
-    for (const temperamentName of existingTemperamentNames) {
-      const existingTemperament = existingTemperaments.find((temp) => temp.name === temperamentName);
-      await newDog.addTemperaments(existingTemperament);
-    }
-
-    res.status(201).json({ data: newDog });
+        const temperamentArray = Array.isArray(temperament) ? temperament : [temperament]; // Convierte a un array si no es.
+        const existingTemperaments = await Temperaments.findAll();                         // Obtiene los temps de la DB.
+        const existingTemperamentNames = temperamentArray.filter((temp) =>                 // Filtra los temps de la DB.
+        existingTemperaments.some((existingTemp) => existingTemp.name === temp)
+        );
+        for (const temperamentName of existingTemperamentNames) {                          // Asocia los temps al nuevo perro.
+        const existingTemperament = existingTemperaments.find((temp) => temp.name === temperamentName);
+        await newDog.addTemperaments(existingTemperament);
+        }
+        res.status(201).json({ data: newDog });
     } catch (error) {
         res.status(500).json({ error: "Error al crear el perro. Detalles: " + error.message });
     }

@@ -9,7 +9,7 @@
 }
 
 .boton {
-    margin-top: 90%;
+    margin-top: 80%;
     width: 9em;
     height: 3em;
     border-radius: 30em;
@@ -21,4 +21,9 @@
     z-index: 1;
     box-shadow: 15px 15px 30px #e4c9a3,
                -15px -15px 30px #e4c9a3;
+   }
+
+   .h2 {
+    margin-top: 5%;
+    font-size: 30px;
    }

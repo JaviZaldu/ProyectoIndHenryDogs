@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}> {/* Provider para proporcionar el estado global del Redux Store. */}
       <BrowserRouter>
         <App />
       </BrowserRouter>

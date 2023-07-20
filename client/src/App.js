@@ -19,8 +19,8 @@ function App() {
           <Route path='/about' component= {About}/>
           <Route path='/detail/:id' component= {Detail}/>
           <Route path="/form" component= {Form} />
-          <Route path='*' component={ErrorPage}/>
           <Route path='/' component={Landing}/>
+          <Route path='*' component={ErrorPage}/>
       </Switch>
     </div>
   );

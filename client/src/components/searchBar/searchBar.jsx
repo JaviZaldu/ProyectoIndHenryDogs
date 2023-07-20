@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from './searchBar.module.css';
 
-function SearchBar() {
+function SearchBar({setCurrentPage}) {
 
   const dispatch = useDispatch();
   const [dogName, setDogName] = useState("");
@@ -14,7 +14,8 @@ function SearchBar() {
   };
 
   const handleSubmit = () => {
-    dispatch(getDogByName(dogName))
+    setCurrentPage(1);
+    dispatch(getDogByName(dogName));
   }
   
   return (

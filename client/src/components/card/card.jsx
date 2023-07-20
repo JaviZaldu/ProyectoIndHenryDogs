@@ -2,7 +2,6 @@ import styles from './card.module.css';
 import { Link } from 'react-router-dom';
 
 function Card({dog}) {
-  console.log(dog)
   const {name, temperament, weight, id} = dog;
 
   let imageDisplay = "";

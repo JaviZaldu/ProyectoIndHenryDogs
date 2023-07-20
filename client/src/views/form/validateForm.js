@@ -43,7 +43,7 @@ export function validate(input) {
     // const weightMin = parseInt(input.weight.weightMin);
     // const weightMax = parseInt(input.weight.weightMax);
 
-    // if (!input.weight.weightMin || !input.weight.weightMin) {
+    // if (!input.weight.weightMin || !input.weight.weightMax) {
     // errors.weightMin = "los pesos son requeridos";
     // errors.weightMax = "los pesos son requeridos";
     // }
@@ -68,6 +68,15 @@ export function validate(input) {
     if (ageMin >= ageMax) {
         errors.ageMin = "La edad mínima debe ser menor a la edad máxima";
         errors.ageMax = "La edad máxima debe ser mayor a la edad mínima";
+    }
+
+    // Validación de los temperamentos
+    if (input.temperament.length < 3) {
+        errors.temperament = "Debe seleccionar un temperamento"
+    }
+
+    if (input.temperament.split(",").length > 4) {
+        errors.temperament = "Máximo 5 temperamentos"
     }
 
 return errors;

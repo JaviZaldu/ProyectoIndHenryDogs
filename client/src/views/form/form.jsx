@@ -11,44 +11,42 @@ function Form() {
   const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({
-        name: "  *",
-        image: "",
-        heightMin: "",
-        heightMax: "",
-        weightMin: "",
-        weightMax: "",
-        ageMin: "",
-        ageMax: "",
-      });
+    name: "  *",
+    image: "",
+    heightMin: "",
+    heightMax: "",
+    weightMin: "",
+    weightMax: "",
+    ageMin: "",
+    ageMax: "",
+  });
       
-      const [input, setInput] = useState({
-        image:"",
-        name:"",
-        heightMin:"",
-        heightMax:"",
-        weight: { 
-          metric: ""
-        },
-        temperament:"",
-        ageMin:"",
-        ageMax:"",
-      })
-
-  const [isDogCreated, setIsDogCreated] = useState(false);
+  const [input, setInput] = useState({
+    image:"",
+    name:"",
+    heightMin:"",
+    heightMax:"",
+    weight: { 
+      metric: ""
+    },
+    temperament:"",
+    ageMin:"",
+    ageMax:"",
+  })
+ 
+console.log(input)
       
-      const validateForm = () => {
-        const errors = validate(input);
-        setErrors(errors);
-      };
+  const validateForm = () => {
+    const errors = validate(input);
+    setErrors(errors);
+  };
 
   const DogsCopy = useSelector((state) => state.DogsCopy.dogs);
-
   const isDogNameDuplicated = (name) => {
     return DogsCopy.some((dog) => dog.name.toLowerCase() === name.toLowerCase());
   };
 
   const allTemperaments = useSelector((state) => state.allTemperaments);
-
   const handleTemperamentChange = (e) => {
     const temperamentValue = e.target.value;
     setInput((prevInput) => {
@@ -68,6 +66,7 @@ function Form() {
       }
       return { ...prevInput, temperament: updatedTemperament };
     });
+    validateForm();
   };
 
 
@@ -75,7 +74,7 @@ function Form() {
     e.preventDefault();
     const { name, value } = e.target;
   
-    // Si el campo es weightMin o weightMax, actualizamos el estado dentro de input.weight.metric
+    // Si el campo es weightMin o weightMax, actualizamos el estado dentro de input.weight.metric.
     if (name === "weightMin" || name === "weightMax") {
       setInput((prevInput) => ({
         ...prevInput,
@@ -86,7 +85,7 @@ function Form() {
         },
       }));
     } else {
-      // Si el campo no es weightMin o weightMax, actualizamos el estado normalmente
+      // Si el campo no es weightMin o weightMax, actualizamos el estado normalmente.
       setInput((prevInput) => ({
         ...prevInput,
         [name]: value,
@@ -104,13 +103,6 @@ function Form() {
       return;
     }
       dispatch(createDog(input))
-    .then(() => {
-      setIsDogCreated(true); // Perro creado exitosamente
-      setTimeout(() => {
-        setIsDogCreated(false); // Ocultar el mensaje después de unos segundos
-      }, 3000);
-      alert("¡Perro creado correctamente!");
-    })
     .catch((errors) => {
       console.log(errors.response);
     });
@@ -121,9 +113,6 @@ function Form() {
     <div>
         <Link to={`/home`}><button className={styles.volver}>VOLVER</button></Link>
     </div>
-    <div>
-        {isDogCreated && <p>¡Perro creado correctamente!</p>}
-      </div>
     <div>
       <form className={styles.form} onSubmit={handleSubmit}>
       <div>
@@ -171,6 +160,8 @@ function Form() {
         </div>
         <div className={styles.TemperamentDiv}>
             <label><strong>Temperamentos:  </strong></label>
+            <br></br>
+            <span className={styles.error} >  {errors.temperament}</span>
             <div className={styles.Temperament}>
                 {allTemperaments.map((temperament) => ( <label key={temperament.id}>
                 <input 
@@ -190,6 +181,7 @@ function Form() {
             !errors.weightMax &&
             !errors.ageMin &&
             !errors.ageMax && 
+            !errors.temperament &&
             <button className={styles.btn} type="submit">Crear Raza</button>}
     </form>
     </div>

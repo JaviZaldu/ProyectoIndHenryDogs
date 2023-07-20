@@ -92,7 +92,6 @@ export function createDog(input) {
 
   return async function (dispatch) {
     const response = await axios.post(`http://localhost:3001/dogs/`,input);
-    console.log(response.data)
     return dispatch({
       type: CREATE_DOG,
       payload: response.data.data,
