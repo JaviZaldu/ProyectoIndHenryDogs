@@ -75,9 +75,10 @@ export function validate(input) {
         errors.temperament = "Debe seleccionar un temperamento"
     }
 
-    if (input.temperament.split(",").length > 4) {
+    if (input.temperament.split(",").length > 5) {
         errors.temperament = "Máximo 5 temperamentos"
     }
 
 return errors;
 }
+

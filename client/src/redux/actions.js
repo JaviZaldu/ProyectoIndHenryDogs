@@ -89,12 +89,16 @@ export function filterByOrigin(origin) {
 //creando...
 
 export function createDog(input) {
-
   return async function (dispatch) {
+    try {
     const response = await axios.post(`http://localhost:3001/dogs/`,input);
+    alert( " Pudiste crear un perro exitosamente " )
     return dispatch({
       type: CREATE_DOG,
       payload: response.data.data,
     });
-  } 
+  } catch (error) {
+    alert( "No se pudo crear un perro" )
+  }
+}
 }
