@@ -33,8 +33,6 @@ function Form() {
     ageMin:"",
     ageMax:"",
   })
- 
-console.log(input)
       
   const validateForm = () => {
     const errors = validate(input);

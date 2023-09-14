@@ -2,9 +2,11 @@ const axios = require("axios");
 const { Dog } = require("../db")
 const URL = "https://api.thedogapi.com/v1/breeds";
 
+const apiKey = process.env.API_KEY;
+
 const getAllDogs = async (req, res) => {
     try {
-        const { data: apiDogs } = await axios.get(URL); // Obtiene la lista de razas de la api.
+        const { data: apiDogs } = await axios.get(URL + "?api_key=" + apiKey); // Obtiene la lista de razas de la api.
         const dbDogs = await Dog.findAll(); // Obtiene las razas de la DB.
         const allDogs = [...dbDogs.map((dbDog) => dbDog.toJSON()), ...apiDogs] // Combina las razas de la api con las de la DB. Modificando el formato.
         res.status(200).json({ dogs: allDogs });
